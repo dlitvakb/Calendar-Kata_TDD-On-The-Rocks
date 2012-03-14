@@ -25,6 +25,19 @@ class WorkingDayCalendarTest < Test::Unit::TestCase
     assert @calendar.is_non_working_day(ConstantDates::some_sunday)
     assert !@calendar.is_non_working_day(ConstantDates::some_monday)
   end
+
+  def test_can_have_any_amount_of_rules
+    @calendar.add_non_working_day_rule(
+      NonWorkingDayOfMonth.new ConstantDates::january_first
+    )
+    @calendar.add_non_working_day_rule(NonWorkingDayOfWeek.new :monday)
+
+    assert @calendar.is_non_working_day(ConstantDates::january_first)
+    assert !@calendar.is_non_working_day(ConstantDates::some_sunday)
+
+    assert @calendar.is_non_working_day(ConstantDates::some_monday)
+    assert !@calendar.is_non_working_day(Time.new 2012, 03, 13)
+  end
 end
 
 class NonWorkingDayOfMonthTest < Test::Unit::TestCase
