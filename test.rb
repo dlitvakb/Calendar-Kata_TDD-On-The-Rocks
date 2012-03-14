@@ -10,8 +10,6 @@ end
 class WorkingDayCalendarTest < Test::Unit::TestCase
   def setup
     @calendar = WorkingDayCalendar.new
-    @some_saturday = Time.new 2012, 03, 10
-    @some_tuesday = Time.new 2012, 03, 13
   end
 
   def test_non_working_day_of_month_rule
